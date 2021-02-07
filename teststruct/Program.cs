@@ -215,12 +215,7 @@ namespace teststruct
             table.AddDish(new Dish());
             table.AddDish(new Dish());
             table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
+
             table.AddDish(new Dish());
 
             Console.ReadLine();
