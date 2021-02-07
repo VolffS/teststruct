@@ -6,20 +6,27 @@ namespace teststruct.PizzaRest
 {
     class Table
     {
-        const int MAX_STACK_SIZE = 3;
+        const int MAX_STACK_DISH = 3;
+        /// <summary>
+        /// Максимальное колчество тарелок
+        /// </summary>
         const int MAX_SIZE_ARR = 3;
-        Stack<Dish>[] stacks = new Stack<Dish>[M];
+        /// <summary>
+        /// Максимальное количество стопок с тарелками
+        /// </summary>
+        Stack<Dish>[] stacks = new Stack<Dish>[MAX_SIZE_ARR];
+
+        public Table()
+        {
+            for (int i = 0; i < MAX_SIZE_ARR; i++)
+                stacks[i] = new Stack<Dish>();
+        }
+
         public bool AddDish(Dish dish)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < MAX_SIZE_ARR; i++)
             {
-                if (stacks[i] == null)
-                {
-                    stacks[i] = new Stack<Dish>();
-                    stacks[i].Push(dish);
-                    return true;
-                }
-                else if (stacks[i].Size()  < MAX_STACK_SIZE)
+               if (stacks[i].Size()  < MAX_STACK_DISH)
                 {
                     stacks[i].Push(dish);
                     return true;
@@ -31,11 +38,13 @@ namespace teststruct.PizzaRest
 
         public Dish PopDish()
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < MAX_SIZE_ARR; i++)
             {
-
+                if (stacks[i].Size() != 0) 
+                    return stacks[i].Pop();
             }
-            stacks
+            return null;
         }
+
     }
 }

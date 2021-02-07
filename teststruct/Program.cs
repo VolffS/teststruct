@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using teststruct.PizzaRest;
+using teststruct.PizzaRest.Workers;
 
 namespace teststruct
 {
@@ -115,6 +117,19 @@ namespace teststruct
             }
             Size++;
         }
+        public int Find(T element)
+        {
+            Node<T> current = start;
+            T temp;
+            for (int i = 0; i < Size; i++)
+            {
+                temp = current.data;
+                if (temp.Equals(element)) return i;
+                current = current.pointer;
+
+            }
+            return -1;
+        }
 
         public T Element(int index)
         {
@@ -124,7 +139,7 @@ namespace teststruct
             {
                 return (currentNode.data );
             }
-            while (c < index - 1)
+            while (c < index)
             {
                 currentNode = currentNode.pointer;
                 c++;
@@ -212,18 +227,30 @@ namespace teststruct
             Queue<int> stak = new Queue<int>();
             Table table = new Table();
 
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
-            table.AddDish(new Dish());
+            
 
-            Console.ReadLine();
+            Worker pizzaMaker = new PizzaMaker("Gleb");
+            Worker disshwasher = new Dishwasher("OLEG");
+            PizzeriaRest pizzeriaRest = new PizzeriaRest();
+            pizzeriaRest.AddWorker(pizzaMaker);
+            pizzeriaRest.AddWorker(disshwasher);
+            var ord1 = new Order();
+            ord1.AddPizza(new Pizza("Вкусная",3,15));
+            ord1.AddPizza(new Pizza("Нажористая",5,18));
+            pizzeriaRest.pizzaOrders.insertToStart(ord1);
+            Order ord2 = new Order();
+            ord2.AddPizza(new Pizza("Вкусная", 3, 15));
+            ord2.AddPizza(new Pizza("Вкусная", 3, 15));
+            ord2.AddPizza(new Pizza("Вкусная", 3, 15));
+            ord2.AddPizza(new Pizza("Вкусная", 3, 15));
+            pizzeriaRest.pizzaOrders.insertToStart(ord2);
+            while (true)
+            {
+                pizzeriaRest.Work();
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
+   
         }
     }
 }

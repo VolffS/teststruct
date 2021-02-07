@@ -9,5 +9,11 @@ namespace teststruct.PizzaRest
     /// </summary>
     class Dish
     {
+        public int time;
+        public Dish(int time)
+        {
+            this.time = time;
+        }
     }
+    
 }
