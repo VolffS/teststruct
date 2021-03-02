@@ -129,7 +129,7 @@ namespace teststruct
 
             }
             return -1;
-        }
+          }
 
         public T Element(int index)
         {
