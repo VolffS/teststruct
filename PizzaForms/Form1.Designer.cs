@@ -81,10 +81,6 @@ namespace PizzaForms
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.OrderPage = new System.Windows.Forms.TabPage();
             this.pizza_OrdersDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pizza_OrdersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigator2 = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem2 = new System.Windows.Forms.ToolStripButton();
@@ -161,6 +157,11 @@ namespace PizzaForms
             this.pizzaTableAdapter = new PizzaForms.PizzeriaDataSetTableAdapters.PizzaTableAdapter();
             this.employeesTableAdapter = new PizzaForms.PizzeriaDataSetTableAdapters.EmployeesTableAdapter();
             this.pizzeriasTableAdapter = new PizzaForms.PizzeriaDataSetTableAdapters.PizzeriasTableAdapter();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.buyersBindingNavigator)).BeginInit();
             this.buyersBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.buyersBindingSource)).BeginInit();
@@ -426,7 +427,7 @@ namespace PizzaForms
             // дбавитьЗаказToolStripMenuItem
             // 
             this.дбавитьЗаказToolStripMenuItem.Name = "дбавитьЗаказToolStripMenuItem";
-            this.дбавитьЗаказToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.дбавитьЗаказToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.дбавитьЗаказToolStripMenuItem.Text = "Добавить заказ";
             this.дбавитьЗаказToolStripMenuItem.Click += new System.EventHandler(this.дбавитьЗаказToolStripMenuItem_Click);
             // 
@@ -664,38 +665,14 @@ namespace PizzaForms
             this.dataGridViewTextBoxColumn9,
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12});
+            this.dataGridViewTextBoxColumn12,
+            this.State});
             this.pizza_OrdersDataGridView.DataSource = this.pizza_OrdersBindingSource;
             this.pizza_OrdersDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pizza_OrdersDataGridView.Location = new System.Drawing.Point(3, 28);
             this.pizza_OrdersDataGridView.Name = "pizza_OrdersDataGridView";
             this.pizza_OrdersDataGridView.Size = new System.Drawing.Size(772, 361);
             this.pizza_OrdersDataGridView.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "Id_Order";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Id_Order";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "Check";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Check";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "Pizza";
-            this.dataGridViewTextBoxColumn11.HeaderText = "Pizza";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.DataPropertyName = "Quantity";
-            this.dataGridViewTextBoxColumn12.HeaderText = "Quantity";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             // 
             // pizza_OrdersBindingSource
             // 
@@ -1377,6 +1354,37 @@ namespace PizzaForms
             // 
             this.pizzeriasTableAdapter.ClearBeforeFill = true;
             // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "Id_Order";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Id_Order";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "Check";
+            this.dataGridViewTextBoxColumn10.HeaderText = "Check";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "Pizza";
+            this.dataGridViewTextBoxColumn11.HeaderText = "Pizza";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.DataPropertyName = "Quantity";
+            this.dataGridViewTextBoxColumn12.HeaderText = "Quantity";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            // 
+            // State
+            // 
+            this.State.DataPropertyName = "State";
+            this.State.HeaderText = "State";
+            this.State.Name = "State";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1495,10 +1503,6 @@ namespace PizzaForms
         private PizzeriaDataSetTableAdapters.Pizza_OrdersTableAdapter pizza_OrdersTableAdapter;
         private System.Windows.Forms.BindingSource pizza_OrdersBindingSource;
         private System.Windows.Forms.DataGridView pizza_OrdersDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.BindingNavigator bindingNavigator2;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem2;
         private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem2;
@@ -1573,6 +1577,11 @@ namespace PizzaForms
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.DataGridViewComboBoxColumn Buyer;
         private System.Windows.Forms.DataGridViewComboBoxColumn Pizzerias;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn State;
     }
 }
 

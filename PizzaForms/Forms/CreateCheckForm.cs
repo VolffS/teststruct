@@ -13,16 +13,16 @@ namespace PizzaForms.Forms
     public partial class CreateCheckForm : Form
     {
         public int IdBuyers;
-        public List<Pizza> selectedPizzas = new List<Pizza>();
+        public List<PizzaForm> selectedPizzas = new List<PizzaForm>();
 
         List<Client> clients;
-        List<Pizza> pizzas;
+        List<PizzaForm> pizzas;
         public CreateCheckForm()
         {
             InitializeComponent();
         }
         
-        public CreateCheckForm(List<Client> clients,List<Pizza> pizzas)
+        public CreateCheckForm(List<Client> clients,List<PizzaForm> pizzas)
         {
             InitializeComponent();
             this.clients = clients;
@@ -80,7 +80,7 @@ namespace PizzaForms.Forms
                 IdBuyers = cl.Id;
                 foreach (var item in OrderView.Items)
                 {
-                    var pizza = (Pizza)((ListViewItem)item).Tag;
+                    var pizza = (PizzaForm)((ListViewItem)item).Tag;
                     selectedPizzas.Add(pizza);
                 }
                 button2.DialogResult = DialogResult.OK;
@@ -118,7 +118,7 @@ namespace PizzaForms.Forms
             if (listView1.SelectedItems.Count!= 0)
             {
                 bool temp = false;
-                var pizza = (Pizza)listView1.SelectedItems[0].Tag;
+                var pizza = (PizzaForm)listView1.SelectedItems[0].Tag;
                 foreach (ListViewItem items in OrderView.Items)
                 {
                     if (items.Text == pizza.Name)
@@ -165,7 +165,7 @@ namespace PizzaForms.Forms
             return Name;
         }
     }
-    public class Pizza
+    public class PizzaForm
     {
         public string Name { get; set; }
         public int IdPizza { get; set; }

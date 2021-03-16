@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace teststruct.PizzaRest.Workers
 {
     class PizzaMaker:Worker
     {
+        
         /// <summary>
         /// Время оставшиеся до конца приготавления пиццы
         /// </summary>

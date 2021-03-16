@@ -5,19 +5,70 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PizzaForms.Data;
 using PizzaForms.Forms;
+using teststruct.PizzaRest;
+using teststruct.PizzaRest.Workers;
 
 namespace PizzaForms
 {
     public partial class Form1 : Form
     {
+        static BackgroundWorker worker = new BackgroundWorker();
+        PizzaMaker pizzaMaker = new PizzaMaker("Gleb");
+        Dishwasher disshwasher = new Dishwasher("OLEG");
+        PizzeriaRest pizzeriaRest = new PizzeriaRest();
+        PizzaRepo pizzaRepo;
         public Form1()
         {
-            InitializeComponent();
+            pizzaMaker.StartCook += PizzaMaker_StartCook;
+            pizzaMaker.OnCook += PizzaMaker_OnCook;
+            pizzaMaker.EndCook += PizzaMaker_EndCook;
+            pizzeriaRest.AddWorker(pizzaMaker);
+            pizzeriaRest.AddWorker(disshwasher);
+
             
+
+            InitializeComponent();
+            pizzaRepo = new PizzaRepo(pizzeriaDataSet);
+
+            pizzeriaRest.pizzariaRepository = pizzaRepo;
+
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerAsync();
         }
+
+        private void PizzaMaker_OnCook(PizzaMaker maker, Pizza pizza)
+        {
+            Console.WriteLine($"Пицца {pizza.Name} готовиться");
+        }
+
+        private void PizzaMaker_EndCook(PizzaMaker maker, Pizza pizza)
+        {
+            Console.WriteLine($"Пицца {pizza.Name} готова");
+        }
+
+        private void PizzaMaker_StartCook(PizzaMaker maker, Pizza pizza)
+        {
+            Console.WriteLine($"Пицца {pizza.Name} начала готовится");
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var ord1 = new Order();
+            ord1.AddPizza(new Pizza("Вкусная", 3, 15));
+            ord1.AddPizza(new Pizza("Нажористая", 5, 18));
+            pizzeriaRest.pizzaOrders.insertToStart(ord1);
+            while (true)
+            {
+                pizzeriaRest.Work();
+                Thread.Sleep(1000);
+            }
+        }
+
         Random rand = new Random();
         private void buyersBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
@@ -82,7 +133,7 @@ namespace PizzaForms
                               Name = $"{cl.Last_Name} {cl.First_Name}"
                           };
             var pizza = from type in this.pizzeriaDataSet.Pizza
-                        select new Pizza
+                        select new PizzaForm
                         {
                             IdPizza = type.Id_Pizza,
                             Name = type.Name,

@@ -2009,6 +2009,8 @@ namespace PizzaForms {
             
             private global::System.Data.DataColumn columnQuantity;
             
+            private global::System.Data.DataColumn columnState;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public Pizza_OrdersDataTable() {
@@ -2076,6 +2078,14 @@ namespace PizzaForms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn StateColumn {
+                get {
+                    return this.columnState;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2111,13 +2121,14 @@ namespace PizzaForms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public Pizza_OrdersRow AddPizza_OrdersRow(CheckRow parentCheckRowByFK_Pizza_Orders_Check, PizzaRow parentPizzaRowByFK_Pizza_Orders_Pizza, int Quantity) {
+            public Pizza_OrdersRow AddPizza_OrdersRow(CheckRow parentCheckRowByFK_Pizza_Orders_Check, PizzaRow parentPizzaRowByFK_Pizza_Orders_Pizza, int Quantity, string State) {
                 Pizza_OrdersRow rowPizza_OrdersRow = ((Pizza_OrdersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
                         null,
-                        Quantity};
+                        Quantity,
+                        State};
                 if ((parentCheckRowByFK_Pizza_Orders_Check != null)) {
                     columnValuesArray[1] = parentCheckRowByFK_Pizza_Orders_Check[0];
                 }
@@ -2157,6 +2168,7 @@ namespace PizzaForms {
                 this.columnCheck = base.Columns["Check"];
                 this.columnPizza = base.Columns["Pizza"];
                 this.columnQuantity = base.Columns["Quantity"];
+                this.columnState = base.Columns["State"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2170,6 +2182,8 @@ namespace PizzaForms {
                 base.Columns.Add(this.columnPizza);
                 this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQuantity);
+                this.columnState = new global::System.Data.DataColumn("State", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnState);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId_Order}, true));
                 this.columnId_Order.AutoIncrement = true;
@@ -2180,6 +2194,7 @@ namespace PizzaForms {
                 this.columnId_Order.Unique = true;
                 this.columnCheck.AllowDBNull = false;
                 this.columnPizza.AllowDBNull = false;
+                this.columnState.MaxLength = 15;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2902,6 +2917,22 @@ namespace PizzaForms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string State {
+                get {
+                    try {
+                        return ((string)(this[this.tablePizza_Orders.StateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'State\' в таблице \'Pizza_Orders\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePizza_Orders.StateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public CheckRow CheckRow {
                 get {
                     return ((CheckRow)(this.GetParentRow(this.Table.ParentRelations["FK_Pizza_Orders_Check"])));
@@ -2932,6 +2963,18 @@ namespace PizzaForms {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetQuantityNull() {
                 this[this.tablePizza_Orders.QuantityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsStateNull() {
+                return this.IsNull(this.tablePizza_Orders.StateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetStateNull() {
+                this[this.tablePizza_Orders.StateColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -5088,40 +5131,45 @@ SELECT Id_Pizza, Name, Price FROM Pizza WHERE (Id_Pizza = @Id_Pizza)";
             tableMapping.ColumnMappings.Add("Check", "Check");
             tableMapping.ColumnMappings.Add("Pizza", "Pizza");
             tableMapping.ColumnMappings.Add("Quantity", "Quantity");
+            tableMapping.ColumnMappings.Add("State", "State");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Pizza_Orders] WHERE (([Id_Order] = @Original_Id_Order) AND ([C" +
-                "heck] = @Original_Check) AND ([Pizza] = @Original_Pizza) AND ((@IsNull_Quantity " +
-                "= 1 AND [Quantity] IS NULL) OR ([Quantity] = @Original_Quantity)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [Pizza_Orders] WHERE (([Id_Order] = @Original_Id_Order) AND ([Check] = @Original_Check) AND ([Pizza] = @Original_Pizza) AND ((@IsNull_Quantity = 1 AND [Quantity] IS NULL) OR ([Quantity] = @Original_Quantity)) AND ((@IsNull_State = 1 AND [State] IS NULL) OR ([State] = @Original_State)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id_Order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id_Order", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Check", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Check", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Pizza", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Pizza", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_State", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "State", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_State", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "State", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Pizza_Orders] ([Check], [Pizza], [Quantity]) VALUES (@Check, @" +
-                "Pizza, @Quantity);\r\nSELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders " +
-                "WHERE (Id_Order = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Pizza_Orders] ([Check], [Pizza], [Quantity], [State]) VALUES (@Check" +
+                ", @Pizza, @Quantity, @State);\r\nSELECT Id_Order, [Check], Pizza, Quantity, State " +
+                "FROM Pizza_Orders WHERE (Id_Order = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Check", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Check", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pizza", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Pizza", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@State", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "State", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Pizza_Orders] SET [Check] = @Check, [Pizza] = @Pizza, [Quantity] = @Quantity WHERE (([Id_Order] = @Original_Id_Order) AND ([Check] = @Original_Check) AND ([Pizza] = @Original_Pizza) AND ((@IsNull_Quantity = 1 AND [Quantity] IS NULL) OR ([Quantity] = @Original_Quantity)));
-SELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders WHERE (Id_Order = @Id_Order)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Pizza_Orders] SET [Check] = @Check, [Pizza] = @Pizza, [Quantity] = @Quantity, [State] = @State WHERE (([Id_Order] = @Original_Id_Order) AND ([Check] = @Original_Check) AND ([Pizza] = @Original_Pizza) AND ((@IsNull_Quantity = 1 AND [Quantity] IS NULL) OR ([Quantity] = @Original_Quantity)) AND ((@IsNull_State = 1 AND [State] IS NULL) OR ([State] = @Original_State)));
+SELECT Id_Order, [Check], Pizza, Quantity, State FROM Pizza_Orders WHERE (Id_Order = @Id_Order)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Check", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Check", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pizza", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Pizza", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@State", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "State", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id_Order", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id_Order", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Check", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Check", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Pizza", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Pizza", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_State", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "State", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_State", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "State", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id_Order", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id_Order", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -5138,7 +5186,7 @@ SELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders WHERE (Id_Order = @I
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id_Order, [Check], Pizza, Quantity FROM dbo.Pizza_Orders";
+            this._commandCollection[0].CommandText = "SELECT Id_Order, [Check], Pizza, Quantity, State FROM Pizza_Orders";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5199,7 +5247,7 @@ SELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders WHERE (Id_Order = @I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id_Order, int Original_Check, int Original_Pizza, global::System.Nullable<int> Original_Quantity) {
+        public virtual int Delete(int Original_Id_Order, int Original_Check, int Original_Pizza, global::System.Nullable<int> Original_Quantity, string Original_State) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id_Order));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_Check));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_Pizza));
@@ -5210,6 +5258,14 @@ SELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders WHERE (Id_Order = @I
             else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((Original_State == null)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_State));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5231,7 +5287,7 @@ SELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders WHERE (Id_Order = @I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Check, int Pizza, global::System.Nullable<int> Quantity) {
+        public virtual int Insert(int Check, int Pizza, global::System.Nullable<int> Quantity, string State) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Check));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Pizza));
             if ((Quantity.HasValue == true)) {
@@ -5239,6 +5295,12 @@ SELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders WHERE (Id_Order = @I
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((State == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(State));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5260,7 +5322,7 @@ SELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders WHERE (Id_Order = @I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Check, int Pizza, global::System.Nullable<int> Quantity, int Original_Id_Order, int Original_Check, int Original_Pizza, global::System.Nullable<int> Original_Quantity, int Id_Order) {
+        public virtual int Update(int Check, int Pizza, global::System.Nullable<int> Quantity, string State, int Original_Id_Order, int Original_Check, int Original_Pizza, global::System.Nullable<int> Original_Quantity, string Original_State, int Id_Order) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Check));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Pizza));
             if ((Quantity.HasValue == true)) {
@@ -5269,18 +5331,32 @@ SELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders WHERE (Id_Order = @I
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_Id_Order));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Check));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Pizza));
-            if ((Original_Quantity.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Quantity.Value));
+            if ((State == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(State));
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Id_Order));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Id_Order));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Check));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Pizza));
+            if ((Original_Quantity.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Quantity.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            if ((Original_State == null)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_State));
+            }
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Id_Order));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -5301,8 +5377,8 @@ SELECT Id_Order, [Check], Pizza, Quantity FROM Pizza_Orders WHERE (Id_Order = @I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Check, int Pizza, global::System.Nullable<int> Quantity, int Original_Id_Order, int Original_Check, int Original_Pizza, global::System.Nullable<int> Original_Quantity) {
-            return this.Update(Check, Pizza, Quantity, Original_Id_Order, Original_Check, Original_Pizza, Original_Quantity, Original_Id_Order);
+        public virtual int Update(int Check, int Pizza, global::System.Nullable<int> Quantity, string State, int Original_Id_Order, int Original_Check, int Original_Pizza, global::System.Nullable<int> Original_Quantity, string Original_State) {
+            return this.Update(Check, Pizza, Quantity, State, Original_Id_Order, Original_Check, Original_Pizza, Original_Quantity, Original_State, Original_Id_Order);
         }
     }
     
