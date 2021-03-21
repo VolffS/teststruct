@@ -54,6 +54,12 @@ namespace PizzaForms
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pictureBoxDishwasher = new System.Windows.Forms.PictureBox();
+            this.pictureBoxPizzaMaker = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.дбавитьЗаказToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,6 +87,11 @@ namespace PizzaForms
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.OrderPage = new System.Windows.Forms.TabPage();
             this.pizza_OrdersDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pizza_OrdersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigator2 = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem2 = new System.Windows.Forms.ToolStripButton();
@@ -157,11 +168,6 @@ namespace PizzaForms
             this.pizzaTableAdapter = new PizzaForms.PizzeriaDataSetTableAdapters.PizzaTableAdapter();
             this.employeesTableAdapter = new PizzaForms.PizzeriaDataSetTableAdapters.EmployeesTableAdapter();
             this.pizzeriasTableAdapter = new PizzaForms.PizzeriaDataSetTableAdapters.PizzeriasTableAdapter();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.buyersBindingNavigator)).BeginInit();
             this.buyersBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.buyersBindingSource)).BeginInit();
@@ -169,6 +175,8 @@ namespace PizzaForms
             ((System.ComponentModel.ISupportInitialize)(this.buyersDataGridView)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDishwasher)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPizzaMaker)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -397,6 +405,12 @@ namespace PizzaForms
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.pictureBoxDishwasher);
+            this.tabPage1.Controls.Add(this.pictureBoxPizzaMaker);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.menuStrip1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -405,6 +419,64 @@ namespace PizzaForms
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Создание";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxDishwasher
+            // 
+            this.pictureBoxDishwasher.Location = new System.Drawing.Point(248, 280);
+            this.pictureBoxDishwasher.Name = "pictureBoxDishwasher";
+            this.pictureBoxDishwasher.Size = new System.Drawing.Size(188, 100);
+            this.pictureBoxDishwasher.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxDishwasher.TabIndex = 6;
+            this.pictureBoxDishwasher.TabStop = false;
+            // 
+            // pictureBoxPizzaMaker
+            // 
+            this.pictureBoxPizzaMaker.Location = new System.Drawing.Point(248, 122);
+            this.pictureBoxPizzaMaker.Name = "pictureBoxPizzaMaker";
+            this.pictureBoxPizzaMaker.Size = new System.Drawing.Size(188, 100);
+            this.pictureBoxPizzaMaker.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxPizzaMaker.TabIndex = 5;
+            this.pictureBoxPizzaMaker.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(138, 344);
+            this.label4.MaximumSize = new System.Drawing.Size(70, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "label4";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(38, 344);
+            this.label3.MaximumSize = new System.Drawing.Size(70, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "label3";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(138, 170);
+            this.label2.MaximumSize = new System.Drawing.Size(70, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "label2";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(38, 170);
+            this.label1.MaximumSize = new System.Drawing.Size(70, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "label1";
             // 
             // menuStrip1
             // 
@@ -673,6 +745,37 @@ namespace PizzaForms
             this.pizza_OrdersDataGridView.Name = "pizza_OrdersDataGridView";
             this.pizza_OrdersDataGridView.Size = new System.Drawing.Size(772, 361);
             this.pizza_OrdersDataGridView.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "Id_Order";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Id_Order";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "Check";
+            this.dataGridViewTextBoxColumn10.HeaderText = "Check";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "Pizza";
+            this.dataGridViewTextBoxColumn11.HeaderText = "Pizza";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.DataPropertyName = "Quantity";
+            this.dataGridViewTextBoxColumn12.HeaderText = "Quantity";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            // 
+            // State
+            // 
+            this.State.DataPropertyName = "State";
+            this.State.HeaderText = "State";
+            this.State.Name = "State";
             // 
             // pizza_OrdersBindingSource
             // 
@@ -1354,37 +1457,6 @@ namespace PizzaForms
             // 
             this.pizzeriasTableAdapter.ClearBeforeFill = true;
             // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "Id_Order";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Id_Order";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "Check";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Check";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "Pizza";
-            this.dataGridViewTextBoxColumn11.HeaderText = "Pizza";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.DataPropertyName = "Quantity";
-            this.dataGridViewTextBoxColumn12.HeaderText = "Quantity";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            // 
-            // State
-            // 
-            this.State.DataPropertyName = "State";
-            this.State.HeaderText = "State";
-            this.State.Name = "State";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1404,6 +1476,8 @@ namespace PizzaForms
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDishwasher)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPizzaMaker)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -1582,6 +1656,12 @@ namespace PizzaForms
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn State;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBoxDishwasher;
+        private System.Windows.Forms.PictureBox pictureBoxPizzaMaker;
     }
 }
 

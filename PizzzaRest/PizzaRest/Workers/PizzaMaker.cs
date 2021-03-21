@@ -15,10 +15,12 @@ namespace teststruct.PizzaRest.Workers
         Pizza currentPizza;
 
         public delegate void PizzaEventhandler(PizzaMaker maker, Pizza pizza);
+        public delegate void PizzaEventhandlerWait();
 
         public event PizzaEventhandler StartCook;
         public event PizzaEventhandler OnCook;
         public event PizzaEventhandler EndCook;
+        public event PizzaEventhandlerWait WaitCook;
 
 
         //Order currentOrder;
@@ -38,7 +40,11 @@ namespace teststruct.PizzaRest.Workers
                     currentPizza = PizzeriaRest.pizzariaRepository.PopPizza();
                     time = currentPizza.Time;
                     CurrentState = State.WORK;
-                    StartCook.Invoke(this, currentPizza);
+                    StartCook.Invoke(this, currentPizza);                    
+                }
+                else
+                {
+                    WaitCook.Invoke();
                 }
             }
             if (CurrentState == State.WORK)
@@ -46,7 +52,7 @@ namespace teststruct.PizzaRest.Workers
                 if (time == 0)
                 {
                     EndCook.Invoke(this, currentPizza);
-                    
+                    PizzeriaRest.pizzariaRepository.PushPizza(currentPizza);
                     for (int i = 0; i < currentPizza.Dish; i++)
                     {
                         PizzeriaRest.table.AddDish(new Dish(PizzeriaRest.random.Next(1, 12)));

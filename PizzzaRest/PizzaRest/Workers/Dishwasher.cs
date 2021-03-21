@@ -12,7 +12,9 @@ namespace teststruct.PizzaRest.Workers
         {
 
         }
-
+        public delegate void DishwasherEventhandler(Dishwasher dishwasher);       
+        public event DishwasherEventhandler Onwashing;
+        public event DishwasherEventhandler Endwashing;
         public override void Work()
         {
             base.Work();
@@ -31,12 +33,14 @@ namespace teststruct.PizzaRest.Workers
                 if (time != 0)
                 {
                     time--;
-                    Console.WriteLine("Тарелка моется");
+                    //Console.WriteLine("Тарелка моется");
+                    Onwashing.Invoke(this);
                 }
                 else
                 {
                     currentDish = null;
-                    Console.WriteLine("Тарелка помылась");
+                    //Console.WriteLine("Тарелка помылась");
+                    Endwashing.Invoke(this);
                     CurrentState = State.WAIT;
                 }
             }

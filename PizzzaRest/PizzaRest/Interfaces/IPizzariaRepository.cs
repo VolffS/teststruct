@@ -12,6 +12,6 @@ namespace PizzzaRest.PizzaRest.Interfaces
         bool IsAvailablePizza { get; set; }
 
         Pizza PopPizza();
-        bool PushPizza();
+        bool PushPizza(Pizza pizza);
     }
 }

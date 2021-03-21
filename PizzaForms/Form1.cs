@@ -12,11 +12,20 @@ using PizzaForms.Data;
 using PizzaForms.Forms;
 using teststruct.PizzaRest;
 using teststruct.PizzaRest.Workers;
+using Timer = System.Windows.Forms.Timer;
 
 namespace PizzaForms
 {
     public partial class Form1 : Form
     {
+        static string PizzaNakerWork;
+        static string DiswasherWork;
+        static string DiswasherWorkImg= Application.StartupPath + "\\Pictures" + "\\Shlapa.jpg";
+        static string PizzaMakerWorkImg = Application.StartupPath + "\\Pictures" + "\\Shlapa.jpg";
+
+
+        Timer timer = new Timer();
+
         static BackgroundWorker worker = new BackgroundWorker();
         PizzaMaker pizzaMaker = new PizzaMaker("Gleb");
         Dishwasher disshwasher = new Dishwasher("OLEG");
@@ -24,44 +33,92 @@ namespace PizzaForms
         PizzaRepo pizzaRepo;
         public Form1()
         {
+            timer.Tick += new EventHandler(RefreshLabel);
+            timer.Interval = 1000; // Здесь интервал на (1 сек)
+            timer.Start();
             pizzaMaker.StartCook += PizzaMaker_StartCook;
             pizzaMaker.OnCook += PizzaMaker_OnCook;
             pizzaMaker.EndCook += PizzaMaker_EndCook;
+            pizzaMaker.WaitCook += PizzaMaker_WaitCook;
+            disshwasher.Onwashing += Disshwasher_Onwashing;
+            disshwasher.Endwashing += Disshwasher_Endwashing;
             pizzeriaRest.AddWorker(pizzaMaker);
             pizzeriaRest.AddWorker(disshwasher);
 
-            
+
 
             InitializeComponent();
             pizzaRepo = new PizzaRepo(pizzeriaDataSet);
-
+            
             pizzeriaRest.pizzariaRepository = pizzaRepo;
-
+            
             worker.DoWork += Worker_DoWork;
             worker.RunWorkerAsync();
+            pizzaRepo.BeginUpdate += PizzaRepo_BeginUpdate;
+        }
+
+        private void PizzaMaker_WaitCook()
+        {
+            PizzaMakerWorkImg = Application.StartupPath + "\\Pictures" + "\\Shlapa.jpg";
+        }
+
+        private void PizzaRepo_BeginUpdate()
+        {
+            this.Validate();
+            this.pizza_OrdersBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.pizzeriaDataSet);
+        }
+
+        public void RefreshLabel(object sender, EventArgs e)
+        {
+            label2.Text = PizzaNakerWork; // Сюда вставь свое обновление label
+            label4.Text = DiswasherWork; // Сюда вставь свое обновление label
+            label1.Text = $"{pizzaMaker.Name} Начал работу";
+            label3.Text = $"{disshwasher.Name} Начал работу";
+            pictureBoxDishwasher.Image = Image.FromFile(DiswasherWorkImg);
+            pictureBoxPizzaMaker.Image = Image.FromFile(PizzaMakerWorkImg);
+
+        }
+
+        private void Disshwasher_Endwashing(Dishwasher dishwasher)
+        {
+            //Console.WriteLine("Тарелка помылась");
+            DiswasherWork = "Тарелка помылась";
+            DiswasherWorkImg = Application.StartupPath + "\\Pictures" + "\\Shlapa.jpg";
+        }
+
+        private void Disshwasher_Onwashing(Dishwasher dishwasher)
+        {
+            //Console.WriteLine("Тарелка моется");
+            DiswasherWork = "Тарелка моется";
+            DiswasherWorkImg = Application.StartupPath+"\\Pictures"+"\\Dishwasher.jpg";
         }
 
         private void PizzaMaker_OnCook(PizzaMaker maker, Pizza pizza)
         {
-            Console.WriteLine($"Пицца {pizza.Name} готовиться");
+            //Console.WriteLine($"Пицца {pizza.Name} готовиться");
+            PizzaNakerWork = $"Пицца {pizza.Name} готовиться";
+            PizzaMakerWorkImg = Application.StartupPath + "\\Pictures" + "\\PizzaOn.jpg";
+
         }
 
         private void PizzaMaker_EndCook(PizzaMaker maker, Pizza pizza)
         {
-            Console.WriteLine($"Пицца {pizza.Name} готова");
+            //Console.WriteLine($"Пицца {pizza.Name} готова");
+            PizzaNakerWork = $"Пицца {pizza.Name} готова";
+            PizzaMakerWorkImg = Application.StartupPath + "\\Pictures" + "\\PizzaReady.jpg";
+
         }
 
         private void PizzaMaker_StartCook(PizzaMaker maker, Pizza pizza)
         {
-            Console.WriteLine($"Пицца {pizza.Name} начала готовится");
+            //Console.WriteLine($"Пицца {pizza.Name} начала готовится");
+            PizzaNakerWork = $"Пицца {pizza.Name} начала готовится";
+            PizzaMakerWorkImg = Application.StartupPath + "\\Pictures" + "\\PizzaOn.jpg";
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var ord1 = new Order();
-            ord1.AddPizza(new Pizza("Вкусная", 3, 15));
-            ord1.AddPizza(new Pizza("Нажористая", 5, 18));
-            pizzeriaRest.pizzaOrders.insertToStart(ord1);
             while (true)
             {
                 pizzeriaRest.Work();
@@ -147,12 +204,13 @@ namespace PizzaForms
                 this.tableAdapterManager.UpdateAll(this.pizzeriaDataSet);
                 foreach (var item in form.selectedPizzas)
                 {
-                    pizzeriaDataSet.Pizza_Orders.Rows.Add(new object[] {null, pizzeriaDataSet.Check.Last().Id_Check, item.IdPizza, item.Count });
+                    pizzeriaDataSet.Pizza_Orders.Rows.Add(new object[] {null, pizzeriaDataSet.Check.Last().Id_Check, item.IdPizza, item.Count,"Не готово" });
                     this.tableAdapterManager.UpdateAll(this.pizzeriaDataSet);
 
                 }
             }
         }
+
 
     }
 }

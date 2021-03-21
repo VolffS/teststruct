@@ -31,7 +31,7 @@ namespace teststruct.PizzaRest.Workers
 
         public virtual void Work()
         {
-            Console.WriteLine($"Начал работу {Name}");
+            //Console.WriteLine($"Начал работу {Name}");
         }
 
         public PizzeriaRest PizzeriaRest { get; set; }
